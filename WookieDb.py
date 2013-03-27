@@ -16,4 +16,5 @@ class WookieDb:
         raise NotImplementedError("Not yet implemented, planned for future")
 
     def query(self, sql):
-        raise NotImplementedError("Not yet implemented, planned for future")
+        self.cursor.execute(sql)
+        return self.cursor.fetchall()
