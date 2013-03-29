@@ -7,7 +7,7 @@ class WookieDb:
         self.cursor = self.connection.cursor()
 
     def select(self, table, fields, condition=None):
-        raise NotImplementedError("Not yet implemented, planned for future")
+        self.query("SELECT " + fields + " FROM " + table + condition)
 
     def insert(self, table, data):
         raise NotImplementedError("Not yet implemented, planned for future")
