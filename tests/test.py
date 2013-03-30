@@ -1,3 +1,5 @@
+import sys
+sys.path.append("../")
 from WookieDb import *
 
 db = WookieDb("localhost", "wookiedbtest", "wookiedbtest", "wookiedbtest")
