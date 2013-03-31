@@ -35,6 +35,13 @@ class TestSelectStatements(unittest.TestCase):
         for r in res:
             self.assertEqual(len(r), 3)
 
+    def testConditionSelect(self):
+
+        res = self.db.select("basic_test", "*", "where id > 1")
+        self.assertEqual(len(res), 2)
+
+        res = self.db.select("basic_test", "*", "where id = 3")
+        self.assertEqual(len(res), 1)
 
 if __name__ == "__main__":
     unittest.main()
