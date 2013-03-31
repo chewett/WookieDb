@@ -8,9 +8,7 @@ class WookieDb:
         self.select_type = select_type
 
     def select(self, table, fields, condition=""):
-        if self.select_type == "nodict":
-            return self.query("SELECT " + fields + " FROM " + table + " " + condition)
-        else:
+        if self.select_type == "dict":
             query = "SELECT " + fields + " FROM " + table + " " + condition
             self.cursor.execute(query)
 
@@ -29,7 +27,8 @@ class WookieDb:
                 results_dict.append(res_dict)
 
             return results_dict
-
+        else:
+            return self.query("SELECT " + fields + " FROM " + table + " " + condition)
 
 
     def insert(self, table, data):
