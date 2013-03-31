@@ -9,9 +9,9 @@ class WookieDb:
 
     def select(self, table, fields, condition=""):
         if self.select_type == "nodict":
-            return self.query("SELECT " + fields + " FROM " + table + condition)
+            return self.query("SELECT " + fields + " FROM " + table + " " + condition)
         else:
-            query = "SELECT " + fields + " FROM " + table + condition
+            query = "SELECT " + fields + " FROM " + table + " " + condition
             self.cursor.execute(query)
 
             description = self.cursor.description
