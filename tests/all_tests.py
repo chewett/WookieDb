@@ -19,18 +19,7 @@ class TestBasicCommands(unittest.TestCase):
         self.assertEqual(res[0][0], 1)
 
     def testCreateTable(self):
-        """tries removing a table if exists, then creating"""
         tables = self.db.query("show tables")
-        if ("basic_test",) in tables:
-            exists = True
-            res = self.db.query("drop table basic_test")
-        else:
-            exists = False
-
-        tables = self.db.query("show tables")
-        self.assertFalse(("basic_test",) in tables)
-
-        self.db.query("DROP TABLE IF EXISTS basic_test")
 
         self.db.query("""CREATE TABLE `basic_test` (
                         `id` int(11) NOT NULL,
@@ -42,6 +31,7 @@ class TestBasicCommands(unittest.TestCase):
         tables = self.db.query("show tables")
         self.assertTrue(("basic_test",) in tables)
 
+        self.db.query("DROP TABLE basic_test")
 
 
 
@@ -49,7 +39,6 @@ class TestInsertStatements(unittest.TestCase):
 
     def setUp(self):
         self.db = WookieDb("localhost", "wookiedbtest", "wookiedbtest", "wookiedbtest")
-        self.db.query("DROP TABLE IF EXISTS `basic_test`")
         self.db.query("""CREATE TABLE `basic_test` (
                         `id` int(11) NOT NULL,
                         `intVar` int(11) DEFAULT NULL,
@@ -72,7 +61,6 @@ class TestSelectStatements(unittest.TestCase):
 
     def setUp(self):
         self.db = WookieDb("localhost", "wookiedbtest", "wookiedbtest", "wookiedbtest")
-        self.db.query("DROP TABLE IF EXISTS `basic_test`")
         self.db.query("""CREATE TABLE `basic_test` (
                         `id` int(11) NOT NULL,
                         `intVar` int(11) DEFAULT NULL,
@@ -80,9 +68,10 @@ class TestSelectStatements(unittest.TestCase):
                          PRIMARY KEY (`id`)
                        ) ENGINE=InnoDB DEFAULT CHARSET=latin1""")
         self.data = {"intVar": "123", "charVar": "testing"}
-        self.db.insert("basic_test", self.data)
-        self.db.insert("basic_test", self.data)
-        self.db.insert("basic_test", self.data)
+        self.db.query("INSERT INTO basic_test VALUES (,123, 'testing');")
+
+    def tearDown(self):
+        self.db.query("DROP TABLE basic_test")
 
     def testBasicSelect(self):
         res = self.db.select("basic_test", "*")
@@ -90,7 +79,7 @@ class TestSelectStatements(unittest.TestCase):
         for r in res:
             self.assertEqual(len(r), 3)
 
-        self.db.insert("basic_test", self.data)
+        self.db.query("INSERT INTO basic_test VALUES ('',123, 'testing');")
 
         res = self.db.select("basic_test", "*")
         self.assertEqual(len(res), 4)
