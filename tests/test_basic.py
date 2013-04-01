@@ -21,7 +21,7 @@ class TestBasicCommands(unittest.TestCase):
     def testCreateTable(self):
 
         self.db.query("""CREATE TABLE `basic_test` (
-                        `id` int(11) NOT NULL,
+                        `id` int(11) NOT NULL AUTO_INCREMENT,
                         `intVar` int(11) DEFAULT NULL,
                         `charVar` varchar(45) DEFAULT NULL,
                          PRIMARY KEY (`id`)
