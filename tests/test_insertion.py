@@ -16,6 +16,9 @@ class TestInsertStatements(unittest.TestCase):
                        ) ENGINE=InnoDB DEFAULT CHARSET=latin1""")
         self.data = {"intVar": "123", "charVar": "testing"}
 
+    def tearDown(self):
+        self.db.query("DROP TABLE basic_test")
+
     def testOneInsert(self):
         res = self.db.query("select * from basic_test")
         self.assertEqual(len(res), 0)
