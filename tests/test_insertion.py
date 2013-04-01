@@ -22,7 +22,7 @@ class TestInsertStatements(unittest.TestCase):
     def testOneInsert(self):
         res = self.db.query("select * from basic_test")
         self.assertEqual(len(res), 0)
-        self.db.insert("test_basic", self.data)
+        self.db.insert("basic_test", self.data)
 
         res = self.db.query("select * from basic_test")
         self.assertEqual(len(res), 1)
@@ -32,7 +32,7 @@ class TestInsertStatements(unittest.TestCase):
         for i in xrange(100):
             res = self.db.query("select * from basic_test")
             self.assertEqual(len(res), i)
-            self.db.insert("test_basic", self.data)
+            self.db.insert("basic_test", self.data)
 
 if __name__ == "__main__":
     unittest.main()
