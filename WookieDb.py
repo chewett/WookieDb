@@ -10,9 +10,12 @@ class WookieDb:
     def select(self, table, fields, condition=""):
         return self.query("SELECT " + fields + " FROM " + table + " " + condition)
 
-
     def insert(self, table, data):
-        raise NotImplementedError("Not yet implemented, planned for future")
+        sql = "INSERT INTO " + table + "(" +\
+              ", ".join(map(str, data.keys())) + ") VALUES (\"" +\
+              "\", \"".join(map(str, data.values())) + "\");"
+
+        self.query(sql)
 
     def update(self, table, data, condition=""):
         raise NotImplementedError("Not yet implemented, planned for future")
