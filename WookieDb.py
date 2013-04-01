@@ -8,9 +8,18 @@ class WookieDb:
         self.select_type = select_type
 
     def select(self, table, fields, condition=""):
+        return self.query("SELECT " + fields + " FROM " + table + " " + condition)
+
+
+    def insert(self, table, data):
+        raise NotImplementedError("Not yet implemented, planned for future")
+
+    def update(self, table, data, condition=""):
+        raise NotImplementedError("Not yet implemented, planned for future")
+
+    def query(self, sql):
         if self.select_type == "dict":
-            query = "SELECT " + fields + " FROM " + table + " " + condition
-            self.cursor.execute(query)
+            self.cursor.execute(sql)
 
             description = self.cursor.description
             results = self.cursor.fetchall()
@@ -27,16 +36,7 @@ class WookieDb:
                 results_dict.append(res_dict)
 
             return results_dict
+
         else:
-            return self.query("SELECT " + fields + " FROM " + table + " " + condition)
-
-
-    def insert(self, table, data):
-        raise NotImplementedError("Not yet implemented, planned for future")
-
-    def update(self, table, data, condition=""):
-        raise NotImplementedError("Not yet implemented, planned for future")
-
-    def query(self, sql):
-        self.cursor.execute(sql)
-        return self.cursor.fetchall()
+            self.cursor.execute(sql)
+            return self.cursor.fetchall()
