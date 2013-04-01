@@ -19,7 +19,6 @@ class TestBasicCommands(unittest.TestCase):
         self.assertEqual(res[0][0], 1)
 
     def testCreateTable(self):
-        tables = self.db.query("show tables")
 
         self.db.query("""CREATE TABLE `basic_test` (
                         `id` int(11) NOT NULL,
