@@ -27,5 +27,12 @@ class TestInsertStatements(unittest.TestCase):
         res = self.db.query("select * from basic_test")
         self.assertEqual(len(res), 1)
 
+    def testManyInsert(self):
+
+        for i in xrange(100):
+            res = self.db.query("select * from basic_test")
+            self.assertEqual(len(res), i)
+            self.db.insert("test_basic", self.data)
+
 if __name__ == "__main__":
     unittest.main()
