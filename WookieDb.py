@@ -7,9 +7,11 @@ class WookieDb:
         self.cursor = self.connection.cursor()
         self.select_type = select_type
 
+    """ Performs a select query based on the table, fields and conditions  """
     def select(self, table, fields, condition=""):
         return self.query("SELECT " + fields + " FROM " + table + " " + condition)
 
+    """ Takes a dict representing a row and inserts it into the table """
     def insert(self, table, data):
         sql = "INSERT INTO " + table + "(" +\
               ", ".join(map(str, data.keys())) + ") VALUES (\"" +\
@@ -20,6 +22,10 @@ class WookieDb:
     def update(self, table, data, condition=""):
         raise NotImplementedError("Not yet implemented, planned for future")
 
+    """ Performs the selected SQL and returns the result if there is one
+        This will return either a list of tuples or dicts depending on the
+        value of select_type.
+    """
     def query(self, sql):
         if self.select_type == "dict":
             self.cursor.execute(sql)
