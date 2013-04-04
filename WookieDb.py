@@ -2,6 +2,9 @@ import MySQLdb
 
 class WookieDb:
 
+    """ This initilises the class and attempts to connect to the given server
+        and the database
+    """
     def __init__(self, host, user, password, db, select_type="nodict"):
         self.connection = MySQLdb.Connect(host=host, user=user, passwd=password, db=db)
         self.cursor = self.connection.cursor()
