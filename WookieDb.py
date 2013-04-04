@@ -12,13 +12,14 @@ class WookieDb:
 
     """ Performs a select query based on the table, fields and conditions  """
     def select(self, table, fields, condition=""):
-        return self.query("SELECT " + fields + " FROM " + table + " " + condition)
+        return self.query("SELECT " + fields + " FROM " + table
+                          + " " + condition)
 
     """ Takes a dict representing a row and inserts it into the table """
     def insert(self, table, data):
-        sql = "INSERT INTO " + table + "(" +\
-              ", ".join(map(str, data.keys())) + ") VALUES (\"" +\
-              "\", \"".join(map(str, data.values())) + "\");"
+        sql = ("INSERT INTO " + table + "(" +
+              ", ".join(map(str, data.keys())) + ") VALUES (\"" +
+              "\", \"".join(map(str, data.values())) + "\");")
 
         self.query(sql)
 
