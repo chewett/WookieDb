@@ -2,7 +2,6 @@ import unittest
 import sys
 sys.path.append("../")
 from WookieDb import *
-import unittest
 
 class TestBasicCommands(unittest.TestCase):
 
