@@ -24,7 +24,17 @@ class WookieDb:
         self.query(sql)
 
     def update(self, table, data, condition=""):
-        raise NotImplementedError("Not yet implemented, planned for future")
+        sql = ("UPDATE " + table + " SET ")
+
+        to_update = list()
+
+        for column, value in data.iteritems():
+            to_update.append(column + " = '" + value + "'")
+
+        sql += ", ".join(to_update)
+
+        sql += " " + condition
+        self.query(sql)
 
     """ Performs the selected SQL and returns the result if there is one
         This will return either a list of tuples or dicts depending on the
