@@ -12,7 +12,7 @@ class TestUpdateStatements(unittest.TestCase):
                         `intVar` int(11) DEFAULT NULL,
                         `charVar` varchar(45) DEFAULT NULL,
                          PRIMARY KEY (`id`)
-                       ) ENGINE=InnoDB DEFAULT CHARSET=latin1""")i
+                       ) ENGINE=InnoDB DEFAULT CHARSET=latin1""")
         self.data = {"intVar": "345", "charVar": "testing2"}
         self.db.query("INSERT INTO basic_test VALUES ('', 123, 'testing');")
 
@@ -25,7 +25,7 @@ class TestUpdateStatements(unittest.TestCase):
         self.assertEqual(res[0][1], 123)
         self.assertEqual(res[0][2], "testing")
 
-        self.update("basic_test", self.data, "WHERE ID = 1")
+        self.db.update("basic_test", self.data, "WHERE ID = 1")
 
         res = self.db.query("select * from basic_test")
         self.assertEqual(len(res), 1)
