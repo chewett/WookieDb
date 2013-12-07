@@ -9,6 +9,7 @@ class WookieDb:
         self.connection = MySQLdb.Connect(host=host, user=user, passwd=password, db=db)
         self.cursor = self.connection.cursor()
         self.select_type = select_type
+        self.debug_mode = False
 
     """ Performs a select query based on the table, fields and conditions  """
     def select(self, table, fields, condition=""):
@@ -42,7 +43,7 @@ class WookieDb:
     """
     def query(self, sql):
         if self.select_type == "dict":
-            self.cursor.execute(sql)
+            self._execute(sql)
 
             description = self.cursor.description
             results = self.cursor.fetchall()
@@ -61,5 +62,11 @@ class WookieDb:
             return results_dict
 
         else:
-            self.cursor.execute(sql)
+            self._execute(sql)
             return self.cursor.fetchall()
+
+    def _execute(self, sql):
+        if self.debug_mode is True:
+            print "Running SQL:", sql
+
+        self.cursor.execute(sql)
