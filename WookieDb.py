@@ -37,6 +37,10 @@ class WookieDb:
         sql += " " + condition
         self.query(sql)
 
+    """ Returns the last autoincrement ID """
+    def get_last_autoincrement(self):
+        return self.cursor.lastrowid
+
     """ Performs the selected SQL and returns the result if there is one
         This will return either a list of tuples or dicts depending on the
         value of select_type.
