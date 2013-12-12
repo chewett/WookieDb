@@ -84,6 +84,9 @@ class WookieDb:
             self._execute(sql)
             return self.cursor.fetchall()
 
+    def commit(self):
+        self.connection.commit()
+
     def _execute(self, sql):
         if self.debug_mode is True:
             print "Running SQL:", sql
