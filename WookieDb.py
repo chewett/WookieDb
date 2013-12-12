@@ -18,9 +18,24 @@ class WookieDb:
 
     """ Takes a dict representing a row and inserts it into the table """
     def insert(self, table, data):
+        data_keys = []
+        data_values = []
+        for key in data.keys():
+            try:
+                data_keys.append(key.encode('utf-8'))
+            except AttributeError:
+                data_keys.append(str(key))
+
+        for value in data.values():
+            try:
+                data_values.append(value.encode('utf-8'))
+            except AttributeError:
+                data_values.append(str(value))
+
+
         sql = ("INSERT INTO " + table + "(" +
-              ", ".join(map(str, data.keys())) + ") VALUES (\"" +
-              "\", \"".join(map(str, data.values())) + "\");")
+              ", ".join(data_keys) + ") VALUES (\"" +
+              "\", \"".join(data_values) + "\");")
 
         self.query(sql)
 
