@@ -53,7 +53,7 @@ class WookieDb:
         self.query(sql)
 
     def delete(self, table, condition=""):
-        sql = "DELETE FROM " + table " "  + condition + ";"
+        sql = "DELETE FROM " + table + " "  + condition + ";"
         self.query(sql)
 
     """ Returns the last autoincrement ID """
