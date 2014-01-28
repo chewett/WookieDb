@@ -6,10 +6,17 @@ class WookieDb:
         and the database
     """
     def __init__(self, host, user, password, db, select_type="nodict"):
-        self.connection = MySQLdb.Connect(host=host, user=user, passwd=password, db=db)
-        self.cursor = self.connection.cursor()
-        self.select_type = select_type
+        self.host = host
+        self.user = user
+        self.password = password
+        self.db = db
         self.debug_mode = False
+        self.select_type = select_type
+        self.connect()
+
+    def connect(self):
+        self.connection = MySQLdb.Connect(host=self.host, user=self.user, passwd=self.password, db=self.db)
+        self.cursor = self.connection.cursor()
 
     """ Performs a select query based on the table, fields and conditions  """
     def select(self, table, fields, condition=""):
