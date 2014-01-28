@@ -101,5 +101,12 @@ class WookieDb:
     def _execute(self, sql):
         if self.debug_mode is True:
             print "Running SQL:", sql
+        try:
+            self.cursor.execute(sql)
+        except OperationalError as e:
+            if e[0] == 2006: #Error is that mysql server has gone away, attempts to reconnet and then runs it again. If it fails again let it fail
+                self.connect()
+                self.cursor.execute(sql)
+            else:
+                raise
 
-        self.cursor.execute(sql)
