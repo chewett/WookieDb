@@ -5,17 +5,21 @@ class WookieDb:
     """ This initilises the class and attempts to connect to the given server
         and the database
     """
-    def __init__(self, host, user, password, db, select_type="nodict"):
+    def __init__(self, host, user, password, db, select_type="nodict", charset=None):
         self.host = host
         self.user = user
         self.password = password
         self.db = db
         self.debug_mode = False
         self.select_type = select_type
+        self.charset = charset
         self.connect()
 
     def connect(self):
-        self.connection = MySQLdb.Connect(host=self.host, user=self.user, passwd=self.password, db=self.db)
+        if self.charset is not None:
+            self.connection = MySQLdb.Connect(host=self.host, user=self.user, passwd=self.password, db=self.db, charset=self.charset)
+        else:
+            self.connection = MySQLdb.Connect(host=self.host, user=self.user, passwd=self.password, db=self.db)
         self.cursor = self.connection.cursor()
 
     """ Performs a select query based on the table, fields and conditions  """
