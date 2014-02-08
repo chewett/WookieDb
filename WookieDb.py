@@ -6,6 +6,7 @@ processing in a nicer way.
 import MySQLdb
 
 class WookieDb:
+    '''Wrapper for MySQLdb to handle MySQL connections nicer'''
 
     def __init__(self, host, user, password, db, select_type="nodict", charset=None):
         """ This initilises the class and attempts to connect to the given server
