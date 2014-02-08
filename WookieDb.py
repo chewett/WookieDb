@@ -120,8 +120,8 @@ class WookieDb:
             print "Running SQL:", sql
         try:
             self.cursor.execute(sql)
-        except MySQLdb.OperationalError as e:
-            if e[0] == 2006: #Error is that mysql server has gone away, attempts to reconnet and then runs it again. If it fails again let it fail
+        except MySQLdb.OperationalError as err:
+            if err[0] == 2006: #Error is that mysql server has gone away, attempts to reconncet and then runs it again. If it fails again let it fail
                 self.connect()
                 self.cursor.execute(sql)
             else:
