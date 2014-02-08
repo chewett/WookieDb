@@ -1,3 +1,8 @@
+'''
+This is a wrapper class around MySQLdb to handle the connection and data
+processing in a nicer way.
+'''
+
 import MySQLdb
 
 class WookieDb:
