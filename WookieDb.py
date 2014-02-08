@@ -21,6 +21,7 @@ class WookieDb:
         self.connect()
 
     def connect(self):
+        '''Connects to the database'''
         if self.charset is not None:
             self.connection = MySQLdb.Connect(host=self.host, user=self.user, passwd=self.password, db=self.db, charset=self.charset)
         else:
@@ -56,6 +57,7 @@ class WookieDb:
         self.query(sql)
 
     def update(self, table, data, condition=""):
+        '''Allows updates based on a dict of data, conditions and table'''
         sql = ("UPDATE " + table + " SET ")
 
         to_update = list()
@@ -69,6 +71,7 @@ class WookieDb:
         self.query(sql)
 
     def delete(self, table, condition=""):
+        '''Allows you to delete based on a condition and table'''
         sql = "DELETE FROM " + table + " "  + condition + ";"
         self.query(sql)
 
@@ -105,9 +108,11 @@ class WookieDb:
             return self.cursor.fetchall()
 
     def commit(self):
+        '''Commits the transactions to the database'''
         self.connection.commit()
 
     def _execute(self, sql):
+        '''Executes the provided SQL and allows some debugging'''
         if self.debug_mode is True:
             print "Running SQL:", sql
         try:
