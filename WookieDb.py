@@ -18,6 +18,8 @@ class WookieDb:
         self.debug_mode = False
         self.select_type = select_type
         self.charset = charset
+        self.cursor = None #set up in connect method called next
+        self.connection = None #set up in connect method called next
         self.connect()
 
     def connect(self):
