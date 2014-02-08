@@ -7,10 +7,10 @@ import MySQLdb
 
 class WookieDb:
 
-    """ This initilises the class and attempts to connect to the given server
-        and the database
-    """
     def __init__(self, host, user, password, db, select_type="nodict", charset=None):
+        """ This initilises the class and attempts to connect to the given server
+            and the database
+        """
         self.host = host
         self.user = user
         self.password = password
@@ -27,13 +27,13 @@ class WookieDb:
             self.connection = MySQLdb.Connect(host=self.host, user=self.user, passwd=self.password, db=self.db)
         self.cursor = self.connection.cursor()
 
-    """ Performs a select query based on the table, fields and conditions  """
     def select(self, table, fields, condition=""):
+        """ Performs a select query based on the table, fields and conditions  """
         return self.query("SELECT " + fields + " FROM " + table
                           + " " + condition)
 
-    """ Takes a dict representing a row and inserts it into the table """
     def insert(self, table, data):
+        """ Takes a dict representing a row and inserts it into the table """
         data_keys = []
         data_values = []
         for key in data.keys():
@@ -72,15 +72,15 @@ class WookieDb:
         sql = "DELETE FROM " + table + " "  + condition + ";"
         self.query(sql)
 
-    """ Returns the last autoincrement ID """
     def get_last_autoincrement(self):
+        """ Returns the last autoincrement ID """
         return self.cursor.lastrowid
 
-    """ Performs the selected SQL and returns the result if there is one
-        This will return either a list of tuples or dicts depending on the
-        value of select_type.
-    """
     def query(self, sql):
+        """ Performs the selected SQL and returns the result if there is one
+            This will return either a list of tuples or dicts depending on the
+            value of select_type.
+        """
         if self.select_type == "dict":
             self._execute(sql)
 
