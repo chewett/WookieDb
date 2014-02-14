@@ -17,6 +17,7 @@ class WookieDb:
         self.password = password
         self.db = db
         self.debug_mode = False
+        self.print_sql_errors = False
         self.select_type = select_type
         self.charset = charset
         self.cursor = None #set up in connect method called next
@@ -125,5 +126,7 @@ class WookieDb:
                 self.connect()
                 self.cursor.execute(sql)
             else:
+                if self.print_sql_errors:
+                    print "SQL RUNNING: " + sql
                 raise
 
