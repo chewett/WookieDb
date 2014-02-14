@@ -130,3 +130,8 @@ class WookieDb:
                     print "SQL RUNNING: " + sql
                 raise
 
+        except MySQLdb.ProgrammingError as err:
+            if self.print_sql_errors:
+                print "SQL RUNNIG: " + sql
+            raise
+
