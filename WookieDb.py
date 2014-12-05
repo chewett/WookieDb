@@ -84,7 +84,7 @@ class WookieDb:
         to_update = list()
 
         for column, value in data.iteritems():
-            to_update.append(column + " = '" + value + "'")
+            to_update.append(column + " = '" + str(value) + "'")
 
         sql += ", ".join(to_update)
 
