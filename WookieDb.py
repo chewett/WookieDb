@@ -4,14 +4,16 @@ processing in a nicer way.
 '''
 
 import MySQLdb
+import json
 
 class WookieDb:
     '''Wrapper for MySQLdb to handle MySQL connections nicer'''
 
-    def __init__(self, host, user, password, db, select_type="nodict", charset=None):
+    def __init__(self, config_file=None, host='localhost', user='root', password='', db='', select_type="nodict", charset=None):
         """ This initilises the class and attempts to connect to the given server
             and the database
         """
+
         self.host = host
         self.user = user
         self.password = password
@@ -20,6 +22,21 @@ class WookieDb:
         self.print_sql_errors = False
         self.select_type = select_type
         self.charset = charset
+
+        # load up stuff from config, this overrides details
+        if config_file is not None:
+            config_file_handler = open(config_file, 'r')
+            config_details = json.load(config_file_handler)
+
+            if 'host' in config_details:
+                self.host = config_details['host']
+            if 'user' in config_details:
+                self.user = config_details['user']
+            if 'password' in config_details:
+                self.password = config_details['password']
+            if 'db' in config_details:
+                self.db = config_details['db']
+
         self.cursor = None #set up in connect method called next
         self.connection = None #set up in connect method called next
         self.connect()
