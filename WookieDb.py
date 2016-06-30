@@ -96,6 +96,9 @@ class WookieDb:
         sql = "DELETE FROM " + table + " "  + condition + ";"
         self.query(sql)
 
+    def show_databases(self):
+        return self.query('SHOW DATABASES')
+
     def get_last_autoincrement(self):
         """ Returns the last autoincrement ID """
         return self.cursor.lastrowid
