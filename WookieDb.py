@@ -49,6 +49,10 @@ class WookieDb:
             self.connection = MySQLdb.Connect(host=self.host, user=self.user, passwd=self.password, db=self.db)
         self.cursor = self.connection.cursor()
 
+    def select_db(self, database):
+        self.db = database
+        return self.query("USE " + database)
+
     def select(self, table, fields, condition=""):
         """ Performs a select query based on the table, fields and conditions  """
         return self.query("SELECT " + fields + " FROM " + table
@@ -98,6 +102,9 @@ class WookieDb:
 
     def show_databases(self):
         return self.query('SHOW DATABASES')
+
+    def show_tables(self):
+        return self.query('SHOW TABLES')
 
     def get_last_autoincrement(self):
         """ Returns the last autoincrement ID """
