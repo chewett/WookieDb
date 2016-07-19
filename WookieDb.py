@@ -5,6 +5,7 @@ processing in a nicer way.
 
 import MySQLdb
 import json
+import MysqldumpWrapper
 
 class WookieDb:
     '''Wrapper for MySQLdb to handle MySQL connections nicer'''
@@ -22,6 +23,7 @@ class WookieDb:
         self.print_sql_errors = False
         self.select_type = select_type
         self.charset = charset
+        self.mysqlDumpWrapper = None
 
         # load up stuff from config, this overrides details
         if config_file is not None:
@@ -162,3 +164,11 @@ class WookieDb:
                 print "SQL RUNNIG: " + sql
             raise
 
+    def _setupMysqlDumpWrapper(self):
+        if self.mysqlDumpWrapper is None:
+            self.mysqlDumpWrapper = MysqldumpWrapper.MysqldumpWrapper()
+
+
+    def dump_tables(self, tables, backup_location):
+        self._setupMysqlDumpWrapper()
+        return self.mysqlDumpWrapper.dump_tables_to_file(self.host, self.user, self.password, self.db, tables, backup_location)
