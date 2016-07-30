@@ -47,11 +47,12 @@ class MysqldumpWrapper:
             raise Exception("Cannot find mysqldump so not executing")
 
         # set up the cnf file to dump
-        tmpfile, tmpfile_path = tempfile.mkstemp(suffix=".my.cnf")
-        table_files = []
-        with open(tmpfile_path, 'w') as tmpfile_file:
-            tmpfile_file.writelines(["[mysqldump]\r\n", 'password="' + password + '"'])
+        tmpfile_file = tempfile.NamedTemporaryFile(delete=False, suffix=".my.cnf", mode="w")
+        tmpfile_path = tmpfile_file.name
+        tmpfile_file.writelines(["[mysqldump]\r\n", 'password="' + password + '"'])
+        tmpfile_file.close() #close the file handle
 
+        table_files = []
         for table in tables:
             table_file = os.path.join(backup_location, table + ".sql")
             command = self.MYSQL_DUMP_LOCATION + ' --defaults-file=' + tmpfile_path + ' --host=' + hostname + ' --protocol=tcp --user=' + user \
